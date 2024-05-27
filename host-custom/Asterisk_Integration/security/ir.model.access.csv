@@ -1,9 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_internal_numbers,access.internal.numbers,model_internal_numbers,base.group_system,1,1,1,1
-access_asterisk_server,access.asterisk.server,model_asterisk_server,base.group_system,1,1,1,1
-access_cdr_log,access.cdr.log,model_cdr_log,base.group_system,1,1,1,1
-access_asterisk_listener,access.asterisk.listener,model_asterisk_listener,base.group_system,1,1,1,1
-access_asterisk_queue,access.asterisk.queue,model_asterisk_queue,,1,1,1,1
-access_asterisk_sms,access.asterisk.sms,model_asterisk_sms,,1,1,1,1
-access_model_edit_asterisk_status_wizard,access.edit.asterisk.status.wizard,model_edit_asterisk_status_wizard,,1,1,1,1
-
