@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: odoo-deployment
+spec:
+  replicas: 1 #Change This Base On Scalibality
+  selector:
+    matchLabels:
+      app: odoo
+  template:
+    metadata:
+      labels:
+        app: odoo
+    spec:
+      nodeSelector:
+        node-role: node2
+      containers:
+        - name: odoo
+          image: odoo:14
+          ports:
+            - containerPort: 8069
+          env:
+            - name: HOST
+              value: db
+            - name: USER
+              value: odoo
+            - name: PASSWORD
+              value: odoo
+          volumeMounts:
+            - name: custom-modules
+              mountPath: /mnt/extra-addons   
+      volumes:
+        - name: custom-modules
+          persistentVolumeClaim:
+            claimName: odoo-pvc
+

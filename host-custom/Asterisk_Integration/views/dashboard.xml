@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Define Window Actions for different views -->
+        <record id="action_cdr_log_missed_calls" model="ir.actions.act_window">
+            <field name="name">Missed Calls</field>
+            <field name="res_model">cdr.log</field>
+            <field name="view_mode">tree</field>
+            <field name="domain">[['destination', '=', 'No One']]</field>
+            <field name="context">{'search_default_missing': True}</field>
+        </record>
+
+        <record id="action_internal_numbers" model="ir.actions.act_window">
+            <field name="name">Internal Numbers</field>
+            <field name="res_model">internal.numbers</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <record id="action_cdr_log_outgoing_calls" model="ir.actions.act_window">
+            <field name="name">Outgoing Calls</field>
+            <field name="res_model">cdr.log</field>
+            <field name="view_mode">graph</field>
+            <field name="domain">[['length', '=', '8']]</field>
+            <field name="context">{'graph_measure': '__count__', 'graph_mode': 'bar', 'graph_groupbys': ['source']}</field>
+            <field name="view_id" ref="Asterisk_Integration.view_total_calls_graph"/>
+        </record>
+
+        <record id="action_cdr_log_incoming_calls" model="ir.actions.act_window">
+            <field name="name">Incoming Calls</field>
+            <field name="res_model">cdr.log</field>
+            <field name="view_mode">graph</field>
+            <field name="domain">[['length', '=', '3'], ['source', 'ilike', 'out']]</field>
+            <field name="context">{'graph_measure': '__count__', 'graph_mode': 'pie', 'graph_groupbys': ['destination']}</field>
+            <field name="view_id" ref="Asterisk_Integration.view_total_calls_graph"/>
+        </record>
+
+        <!-- Define the Board View -->
+        <record id="view_cdr_logs_dashboard" model="ir.ui.view">
+            <field name="name">cdr.log.dashboard</field>
+            <field name="model">board.board</field>
+            <field name="arch" type="xml">
+                <form string="CDR Dashboard" js_class="board">
+                    <board style="1-1">
+                        <column>
+                            <action string="Missed Calls" name="%(action_cdr_log_missed_calls)d"/>
+                            <action string="Outgoing Calls" name="%(action_cdr_log_outgoing_calls)d"/>
+                        </column>
+                        <column>
+                            <action string="Internal Numbers" name="%(action_internal_numbers)d"/>
+                            <action string="Incoming Calls" name="%(action_cdr_log_incoming_calls)d"/>
+                        </column>
+                    </board>
+                </form>
+            </field>
+        </record>
+
+        <!-- Action for Dashboard -->
+        <record id="action_cdr_logs_dashboard" model="ir.actions.act_window">
+            <field name="name">Call Dashboard</field>
+            <field name="name">Call Dashboard</field>
+            <field name="res_model">board.board</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_cdr_logs_dashboard"/>
+        </record>
+
+        <!-- Menu Item for Dashboard -->
+        <menuitem id="menu_cdr_logs_dashboard" name="CDR Dashboard"
+                  parent="asterisk_root"
+                  action="action_cdr_logs_dashboard"/>
+    </data>
+</odoo>

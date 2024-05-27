@@ -1,0 +1,36 @@
+<odoo>
+    <data>
+
+        <!-- Server Actions -->
+        <record id="action_open_singleton_form" model="ir.actions.server">
+            <field name="name">Open Singleton Form</field>
+            <field name="model_id" ref="model_asterisk_listener"/>
+            <field name="state">code</field>
+            <field name="code">action = model.open_form(); action['new'] = 'new'; action</field>
+        </record>
+
+        <!--From View For Event Listener -->
+        <record id="view_asterisk_listener_form" model="ir.ui.view">
+            <field name="name">asterisk.listener.form</field>
+            <field name="model">asterisk.listener</field>
+            <field name="arch" type="xml">
+                <form string="Asterisk Listener Config">
+                    <group>
+                        <field name="host"/>
+                        <field name="port"/>
+                        <field name="username"/>
+                        <field name="secret"/>
+                        <field name="is_running" invisible="1"/>
+                    </group>
+                    <footer>
+                        <button name="start_listener_cron" string="Start Event Listener" type="object" attrs="{'invisible': [('is_running', '=', True)]}"/>
+                        <button name="stop_listener_cron" string="Stop Event Listener" type="object" attrs="{'invisible': [('is_running', '=', False)]}"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!-- Menu Item -->
+        <menuitem id="menu_asterisk_listener" name="Asterisk Event Listener" action="action_open_singleton_form" parent="asterisk_root"/>
+    </data>
+</odoo>

@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: asterisk-numbers-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: asterisk-numbers
+  template:
+    metadata:
+      labels:
+        app: asterisk-numbers
+    spec:
+      nodeSelector:
+        node-role: node1
+      containers:
+        - name: asterisk-numbers
+          image: alaeddinekh/sip-add
+          ports:
+            - containerPort: 5000
+          env:
+            - name: DB_NAME
+              value: odoo   # Name of the Database in Odoo
+            - name: DB_USER
+              value: odoo
+            - name: DB_PASSWORD
+              value: odoo
+            - name: DB_HOST
+              value: db
+            - name: DB_PORT
+              value: "5432"
+          volumeMounts:
+            - name: asterisk-conf-volume
+              mountPath: /asterisk
+      volumes:
+        - name: asterisk-conf-volume  # Matching volume name
+          persistentVolumeClaim:
+            claimName: asterisk-config
+

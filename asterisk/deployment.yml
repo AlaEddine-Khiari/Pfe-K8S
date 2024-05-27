@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: asterisk-deployment
+spec:
+  replicas: 1 #Change This Base On Scalibality
+  selector:
+    matchLabels:
+      app: asterisk
+  template:
+    metadata:
+      labels:
+        app: asterisk
+    spec:
+      containers:
+      - name: asterisk
+        image: alaeddinekh/asterisk-image
+        ports:
+          - containerPort: 5038  # AMI-port
+          - containerPort: 5060  # SIP port
+        volumeMounts:
+          - name: asterisk-conf-volume
+            mountPath: /etc/asterisk
+          - name: asterisk-logs-volume
+            mountPath: /var/log/asterisk/cdr-custom
+          - name: asterisk-recordings-volume
+            mountPath: /var/spool/asterisk/recording
+      volumes:
+        - name: asterisk-logs-volume  # Matching volume name
+          persistentVolumeClaim:
+            claimName: asterisk-logs
+        - name: asterisk-recordings-volume  # Matching volume name
+          persistentVolumeClaim:
+            claimName: asterisk-recordings
+        - name: asterisk-conf-volume  # Matching volume name
+          persistentVolumeClaim:
+            claimName: asterisk-config

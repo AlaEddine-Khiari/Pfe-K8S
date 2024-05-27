@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: asterisk-logs-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: asterisk-logs
+  template:
+    metadata:
+      labels:
+        app: asterisk-logs
+    spec:
+      nodeSelector:
+        node-role: node1
+      containers:
+        - name: asterisk-logs
+          image: alaeddinekh/asterisk-logs
+          ports:
+            - containerPort: 4000
+          env:
+            - name: DB_NAME
+              value: odoo   # Name of the Database in Odoo
+            - name: DB_USER
+              value: odoo
+            - name: DB_PASSWORD
+              value: odoo
+            - name: DB_HOST
+              value: db
+            - name: DB_PORT
+              value: "5432"
+          volumeMounts:
+            - name: asterisk-recordings-volume
+              mountPath: /ext/recordings
+            - name: asterisk-logs-volume
+              mountPath: /ext
+      volumes:
+        - name: asterisk-logs-volume  # Matching volume name
+          persistentVolumeClaim:
+            claimName: asterisk-logs
+        - name: asterisk-recordings-volume  # Matching volume name
+          persistentVolumeClaim:
+            claimName: asterisk-recordings

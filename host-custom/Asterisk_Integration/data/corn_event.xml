@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Schedule the cron job to run every 5 minute if It Stop -->
+        <record id="cron_asterisk_listener" model="ir.cron">
+            <field name="name">Asterisk Event Listener</field>
+            <field name="model_id" ref="model_asterisk_listener"/>
+            <field name="state">code</field>
+            <field name="code">model.listen_for_events()</field>
+            <field name="interval_number">5</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field> <!-- Run Until Stop -->
+            <field name="active" eval="False"/>
+        </record>
+    </data>
+</odoo>

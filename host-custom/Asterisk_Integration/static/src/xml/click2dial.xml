@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<template>
+
+    <!-- Add phone button in top right menu for "Voice Mail" -->
+    <t  t-name="Asterisk_Integration.systray.OpenCaller">
+        <li class="o_mail_systray_item">
+            <a id="asterisk-open-caller" href="#" title="Voice Mail" role="button">
+                <i class="fa fa-phone" role="img" aria-label="Voice Mail" />
+            </a>
+        </li>
+    </t>
+
+</template>

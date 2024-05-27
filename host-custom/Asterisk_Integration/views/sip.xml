@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Action for Asterisk Internal Numbers -->
+    <record id="sip_action" model="ir.actions.act_window">
+        <field name="name">Internal Numbers</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">internal.numbers</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Add Your First Internal Number
+            </p>
+        </field>
+    </record>
+
+    <!-- Form View for Asterisk Internal Numbers -->
+    <record id="internal_numbers_form" model="ir.ui.view">
+        <field name="name">internal.numbers.form</field>
+        <field name="model">internal.numbers</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="extension"/>
+                            <field name="secret"/>
+                            <field name="note"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Tree View for Asterisk Internal Numbers -->
+    <record id="internal_numbers_tree" model="ir.ui.view">
+        <field name="name">internal.numbers.tree</field>
+        <field name="model">internal.numbers</field>
+        <field name="arch" type="xml">
+            <tree>
+                <header>
+                    <button name="apply_changes" string="Apply Changes" type="object" class="oe_highlight"/>
+                </header>
+                <field name="note"/>
+                <field name="extension"/>
+                <field name="secret"/>
+                <field name="status"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Define a search view for the model -->
+    <record id="view_internal_numbers_search" model="ir.ui.view">
+        <field name="name">internal.numbers.search</field>
+        <field name="model">internal.numbers</field>
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+            <!-- Define the search view layout -->
+            <search>
+                <!-- Define filters and groupings -->
+                <field name="note"/>
+                <field name="extension"/>
+                <separator/>
+            </search>
+        </field>
+    </record>
+
+    <!-- Menu Item for Asterisk Internal Numbers -->
+    <menuitem id="sip_root"
+              name="Internal Numbers"
+              action="sip_action"
+              parent="asterisk_root"
+              sequence="3"/>
+
+</odoo>

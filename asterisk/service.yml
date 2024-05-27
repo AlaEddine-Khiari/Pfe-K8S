@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: asterisk-service
+spec:
+  selector:
+    app: asterisk
+  ports:
+    - name: tcp-ami
+      port: 5038
+      targetPort: 5038
+      protocol: TCP
+    - name: udp-sip
+      port: 5060
+      targetPort: 5060
+      protocol: UDP
+  type: LoadBalancer

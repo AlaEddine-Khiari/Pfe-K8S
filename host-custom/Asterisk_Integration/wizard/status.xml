@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Form View Status Asterisk -->
+    <record id="view_queue_form_custom" model="ir.ui.view">
+        <field name="name">Asterisk_Integration.queue.custom</field>
+        <field name="model">asterisk.queue</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group name="asterisk_standard" string="My Support Team Status">
+                      <field name="action" widget="selection" required="1"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Save" type="object" class="btn-primary o_form_button_save" special="save"/>
+                    <button string="Close" type="object" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action Edit Status Asterisk -->
+    <record id="action_edit_asterisk_status" model="ir.actions.server">
+        <field name="type">ir.actions.server</field>
+        <field name="name">Status Action</field>  
+        <field name="model_id" ref="model_edit_asterisk_status_wizard"/>
+        <field name="state">code</field>
+        <field name="code">action = model.action_edit_status(); action['new'] = 'current'; action</field>
+    </record>
+
+    <!-- menu item -->
+    <menuitem id="menu_action_edit_asterisk_status"
+              name="Asterisk Status"
+              sequence="1"
+              action="action_edit_asterisk_status"/>
+</odoo>

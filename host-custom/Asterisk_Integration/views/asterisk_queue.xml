@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Action for Asterisk Queue -->
+    <record id="action_asterisk_queue" model="ir.actions.act_window">
+        <field name="name">Asterisk Support Team Queue</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">asterisk.queue</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Add Your First Member To The Queue Here
+            </p>
+        </field>
+    </record>
+
+    <!-- Form View for Asterisk Queues -->
+    <record id="view_asterisk_queue_form" model="ir.ui.view">
+        <field name="name">Asterisk_Inteegration.asterisk.queue.form</field>
+        <field name="model">asterisk.queue</field>
+        <field name="arch" type="xml">
+            <form string="Asterisk Queue" create="true" edit="true">
+                <group>
+                    <field name="name"/>
+                    <field name="member" attrs="{'readonly': [('id', '!=', False)]}"/>
+                    <field name="action" attrs="{'invisible': [('id', '==', False)],'required': [('id', '!=', False)]}"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <!-- Tree View for Asterisk Queues -->
+    <record id="view_asterisk_queue_tree" model="ir.ui.view">
+        <field name="name">Asterisk_Inteegration.asterisk.queue.tree</field>
+        <field name="model">asterisk.queue</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="member"/>
+                <field name="action"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Define a search view for the model -->
+    <record id="view_asterisk_queue_search" model="ir.ui.view">
+        <field name="name">asterisk.queue.search</field>
+        <field name="model">asterisk.queue</field>
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+            <!-- Define the search view layout -->
+            <search>
+                <!-- Define filters and groupings -->
+                <field name="member"/>
+                <field name="action"/>
+                <separator/>
+            </search>
+        </field>
+    </record>
+
+    <!-- Menu Item for Asterisk Queues -->
+    <menuitem id="menu_asterisk_queue" name="Manage Support Queue"
+        action="action_asterisk_queue" parent="asterisk_root" sequence="6"/>
+</odoo>
