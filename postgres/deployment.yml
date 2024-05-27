@@ -12,8 +12,6 @@ spec:
       labels:
         app: db
     spec:
-      nodeSelector:
-        node-role: node2
       containers:
       - name: postgres
         image: postgres:15
