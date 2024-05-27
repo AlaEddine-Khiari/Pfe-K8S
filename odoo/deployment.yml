@@ -26,11 +26,3 @@ spec:
               value: odoo
             - name: PASSWORD
               value: odoo
-          volumeMounts:
-            - name: custom-modules
-              mountPath: /mnt/extra-addons   
-      volumes:
-        - name: custom-modules
-          persistentVolumeClaim:
-            claimName: odoo-pvc
-
