@@ -12,8 +12,6 @@ spec:
       labels:
         app: odoo
     spec:
-      nodeSelector:
-        node-role: node2
       containers:
         - name: odoo
           image: odoo:14
