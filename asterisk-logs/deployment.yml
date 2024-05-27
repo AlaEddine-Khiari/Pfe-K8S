@@ -12,8 +12,6 @@ spec:
       labels:
         app: asterisk-logs
     spec:
-      nodeSelector:
-        node-role: node1
       containers:
         - name: asterisk-logs
           image: alaeddinekh/asterisk-logs
