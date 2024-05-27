@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Apply PersistentVolume (PV) for shared storage
+kubectl apply -f persistent-volume.yml
+
 # Apply PersistentVolumeClaim (PVC) for shared storage
 kubectl apply -f persistent-volume-claim.yml
 
